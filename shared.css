@@ -20,13 +20,19 @@ body {
 .pokeball {
     width: 2300px;
     height: 2300px;
+    min-width: 2300px;
+    min-height: 2300px;
     border-radius: 50%;
     position: relative;
     background: linear-gradient(to bottom,#e03131 50%,white 50%);
     border: 60px solid black; 
     box-shadow: 70px 50px 0 rgba(0, 0, 0, 0.3);
     transform: rotate(-20deg);
+    transform-origin: center center;
     z-index: 1;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 
@@ -75,4 +81,62 @@ body {
 .title {
     letter-spacing: 13px;
     
+}
+
+.controls {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.nav-btn {
+    font-family: 'Courier New', monospace;
+    font-size: 48px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 40px 70px;
+    border: 10px solid #000;
+    border-radius: 0;
+    background-color: #42EBE7;
+    color: #000;
+    cursor: pointer;
+    box-shadow: 20px 20px 0 rgba(0, 0, 0);
+    transition: all 0.1s ease;
+    letter-spacing: 2px;
+}
+
+.nav-btn:hover {
+    transform: translate(10px, 10px);
+    box-shadow: 10px 10px 0 rgba(0, 0, 0);
+}
+
+.nav-btn:active {
+    transform: translate(14px, 14px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0);
+}
+
+.nav-btn.buscar-nav {
+    background-color: #42EBE7;
+}
+
+.nav-btn.historico,
+.nav-btn.vs,
+.nav-btn.favoritos {
+    background-color: #fff;
+}
+
+.nav-btn.favoritos {
+    color: #e03131;
 }
