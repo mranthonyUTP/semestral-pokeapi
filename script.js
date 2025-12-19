@@ -12,6 +12,7 @@ const pokeMeta = document.getElementById("pokeMeta");
 
 const CACHE_KEY = "poke_cache";
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 horas en milisegundos
+let currentPokemon = null;
 
 function normalizeQuery(q) {
   return q.trim().toLowerCase();
@@ -110,6 +111,8 @@ function setBar(id, value, max=200){
 }
 
 function renderPokemon(p){
+  // mantener referencia del Pokémon actual
+  currentPokemon = p;
   // imagen (puedes cambiar a official-artwork si quieres)
   const img =
     p.sprites?.front_default ||
@@ -155,6 +158,10 @@ function renderPokemon(p){
   document.getElementById("resultError").hidden = true;
   document.getElementById("resultCard").hidden = false;
   renderEvolutionUI(p);
+
+  // actualizar estado del botón de favorito dentro de la tarjeta
+  const favBtnEl = document.getElementById("favBtn");
+  if (favBtnEl) favBtnEl.textContent = isFavorite(p.id) ? "❤️" : "🤍";
 
 }
 
@@ -375,4 +382,154 @@ function saveFavorites(list){
 function isFavorite(pokemonId){
   return getFavorites().some(p => p.id === pokemonId);
 }
+
+/* Toggle favorite for the currently displayed Pokémon */
+function toggleFavoriteForCurrent(){
+  if (!currentPokemon) return;
+  const id = currentPokemon.id;
+  if (isFavorite(id)) removeFavorite(id);
+  else addFavoriteFromPokemon(currentPokemon);
+  // actualizar botón en la tarjeta
+  const favBtnEl = document.getElementById("favBtn");
+  if (favBtnEl) favBtnEl.textContent = isFavorite(id) ? "❤️" : "🤍";
+  // si la vista de favoritos está abierta, refrescarla
+  const favContainer = document.getElementById("favoritesContainer");
+  if (favContainer && !favContainer.hidden) renderFavoritesList();
+}
+
+function addFavoriteFromPokemon(p){
+  const list = getFavorites();
+  if (list.some(f => f.id === p.id)) return; // evitar duplicados
+  const sprite = p.sprites?.front_default || p.sprites?.other?.["official-artwork"]?.front_default || "";
+  const favObj = {
+    id: p.id,
+    name: String(p.name).toLowerCase(),
+    number: p.id,
+    sprite: sprite,
+    types: p.types.map(t => t.type.name)
+  };
+  list.push(favObj);
+  saveFavorites(list);
+}
+
+function removeFavorite(pokemonId){
+  const list = getFavorites().filter(f => f.id !== pokemonId);
+  saveFavorites(list);
+  // si el Pokémon mostrado coincide, actualizar botón
+  if (currentPokemon && currentPokemon.id === pokemonId){
+    const favBtnEl = document.getElementById("favBtn");
+    if (favBtnEl) favBtnEl.textContent = "🤍";
+  }
+}
+
+function clearAllFavorites(){
+  saveFavorites([]);
+  const favContainer = document.getElementById("favoritesContainer");
+  if (favContainer && !favContainer.hidden) renderFavoritesList();
+  const favBtnEl = document.getElementById("favBtn");
+  if (favBtnEl && currentPokemon) favBtnEl.textContent = isFavorite(currentPokemon.id) ? "❤️" : "🤍";
+}
+
+function renderFavoritesList(){
+  const wrap = document.getElementById("favoritesList");
+  if (!wrap) return;
+  wrap.innerHTML = "";
+  const list = getFavorites();
+  if (!list.length){
+    const empty = document.createElement("div");
+    empty.className = "favorites-empty";
+    empty.textContent = "NO HAY FAVORITOS";
+    wrap.appendChild(empty);
+    return;
+  }
+
+  list.forEach(f => {
+    const card = document.createElement("div");
+    card.className = "favorite-card";
+
+    const img = document.createElement("img");
+    img.className = "favorite-sprite";
+    img.src = f.sprite || "";
+    img.alt = f.name;
+
+    const info = document.createElement("div");
+    info.className = "favorite-info";
+
+    const nameRow = document.createElement("div");
+    nameRow.className = "favorite-name-row";
+
+    const num = document.createElement("div");
+    num.className = "favorite-number";
+    num.textContent = `#${f.number}`;
+
+    const name = document.createElement("div");
+    name.className = "favorite-name";
+    name.textContent = String(f.name).toUpperCase();
+
+    nameRow.appendChild(num);
+    nameRow.appendChild(name);
+
+    const typesWrap = document.createElement("div");
+    typesWrap.className = "favorite-types";
+    f.types.forEach(t => {
+      const tspan = document.createElement("div");
+      tspan.className = "favorite-type-badge";
+      tspan.textContent = t.toUpperCase();
+      typesWrap.appendChild(tspan);
+    });
+
+    info.appendChild(nameRow);
+    info.appendChild(typesWrap);
+
+    const del = document.createElement("button");
+    del.className = "favorite-delete-btn";
+    del.textContent = "🗑️";
+    del.addEventListener("click", () => {
+      removeFavorite(f.id);
+      renderFavoritesList();
+    });
+
+    card.appendChild(img);
+    card.appendChild(info);
+    card.appendChild(del);
+
+    wrap.appendChild(card);
+  });
+}
+
+/* UI: show/hide favorites view */
+function showFavoritesView(){
+  const favContainer = document.getElementById("favoritesContainer");
+  if (!favContainer) return;
+  // ocultar result card y errores
+  const resultCardEl = document.getElementById("resultCard");
+  const resultErrorEl = document.getElementById("resultError");
+  if (resultCardEl) resultCardEl.hidden = true;
+  if (resultErrorEl) resultErrorEl.hidden = true;
+  favContainer.hidden = false;
+  renderFavoritesList();
+}
+
+function hideFavoritesView(){
+  const favContainer = document.getElementById("favoritesContainer");
+  if (!favContainer) return;
+  favContainer.hidden = true;
+  const resultCardEl = document.getElementById("resultCard");
+  if (resultCardEl) resultCardEl.hidden = currentPokemon ? false : true;
+}
+
+/* Attach UI listeners */
+document.addEventListener("DOMContentLoaded", () => {
+  const favNav = document.querySelector(".favoritos");
+  if (favNav) favNav.addEventListener("click", showFavoritesView);
+
+  const buscarNav = document.querySelector(".buscar-nav");
+  if (buscarNav) buscarNav.addEventListener("click", hideFavoritesView);
+
+  const favBtn = document.getElementById("favBtn");
+  if (favBtn) favBtn.addEventListener("click", toggleFavoriteForCurrent);
+
+  const clearAllBtn = document.getElementById("clearAllBtn");
+  if (clearAllBtn) clearAllBtn.addEventListener("click", () => { clearAllFavorites(); renderFavoritesList(); });
+});
 
