@@ -280,9 +280,11 @@ body {
 }
 /* ===== Pokédex Card (como la imagen) ===== */
 .pokedex-card{
-  width: 560px;
-  max-width: 92vw;
-  background: #fff;
+    margin-top: 230px;
+  position: absolute;   /* puede quedarse */
+  height: auto;         /* importante */
+  overflow: visible;    /* importante */
+    background: #fff;
   border: 6px solid #111;
   box-shadow: 12px 12px 0 #111;
   padding: 18px;
@@ -463,4 +465,56 @@ body {
   left:50%;
   transform: translateX(-50%);
   z-index: 10;
+}
+.evo-chain{
+  display:flex;
+  align-items:center;
+  gap: 12px;
+}
+
+.evo-card{
+  border: 4px solid #111;
+  background:#fff;
+  box-shadow: 6px 6px 0 #111;
+  padding: 10px 12px;
+  min-width: 140px;
+  cursor:pointer;
+  transition: all 0.1s;
+  text-align:center;
+}
+
+.evo-card:hover{
+  transform: translate(2px,2px);
+  box-shadow: 4px 4px 0 #111;
+}
+
+.evo-sprite{
+  width: 72px;
+  height: 72px;
+  image-rendering: pixelated;
+  object-fit: contain;
+}
+
+.evo-name{
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-top: 6px;
+  color:#111;
+}
+
+.evo-cond{
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  border: 3px solid #111;
+  background:#f4d35e;
+  padding: 6px 8px;
+}
+
+.evo-arrow{
+  font-weight: 900;
+  border: 4px solid #111;
+  background:#42EBE7;
+  padding: 8px 10px;
+  box-shadow: 6px 6px 0 #111;
 }
