@@ -12,20 +12,20 @@ body {
         /* Background */
     background-color: #f5e6d3; 
     background-image: url(./assets/patterns/grey-dot.png); /*imagen patron de fondo*/
-    background-size: 100px 100px; 
+    background-size: 40px 40px; 
     background-position: center; 
     background-repeat: repeat; 
 }
 
 .pokeball {
-    width: 2300px;
-    height: 2300px;
-    min-width: 2300px;
-    min-height: 2300px;
+    width: 1000px;
+    height: 1000px;
+    min-width: 100px;
+    min-height: 100px;
     border-radius: 50%;
     position: relative;
     background: linear-gradient(to bottom,#e03131 50%,white 50%);
-    border: 60px solid black; 
+    border: 20px solid black; 
     box-shadow: 70px 50px 0 rgba(0, 0, 0, 0.3);
     transform: rotate(-20deg);
     transform-origin: center center;
@@ -54,17 +54,17 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 440px;
-    height: 440px;
+    width: 220px;
+    height: 220px;
     background: white;
     border-radius: 50%;
-    border: 60px solid black;
+    border: 20px solid black;
 }
 
 
 /* Title Style */
 .title-container {
-    font-size: 72px;
+    font-size: 20px;
     text-transform: uppercase;
     background-color: #42EBE7;
     padding: 20px 20px;
@@ -72,14 +72,13 @@ body {
     border: 15px solid #000;
     box-shadow: 20px 20px 0 rgba(0, 0, 0);
     position: absolute;
-    top: 15%;
+    top: 10%;
     left: 50%;
     z-index: 10;
     transform: translateX(-50%) rotate(-2deg);
 }
 
 .title {
-    letter-spacing: 13px;
     
 }
 
@@ -92,51 +91,376 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.nav-buttons {
-    display: flex;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
-    justify-content: center;
 }
 
-.nav-btn {
-    font-family: 'Courier New', monospace;
-    font-size: 48px;
-    font-weight: bold;
-    text-transform: uppercase;
-    padding: 40px 70px;
-    border: 10px solid #000;
-    border-radius: 0;
-    background-color: #42EBE7;
-    color: #000;
-    cursor: pointer;
-    box-shadow: 20px 20px 0 rgba(0, 0, 0);
-    transition: all 0.1s ease;
-    letter-spacing: 2px;
+/* ===== NAV TABS (igual al #1) ===== */
+.nav-buttons{
+  display: flex;
+  gap: 5px;
+  background: #ff6b6b;
+  padding: 8px;
+  border: 5px solid #2d2d2d;
+  box-shadow: 6px 6px 0px #2d2d2d;
 }
 
-.nav-btn:hover {
-    transform: translate(10px, 10px);
-    box-shadow: 10px 10px 0 rgba(0, 0, 0);
+/* Botón tab */
+.nav-btn{
+  background: #bdc3c7;
+  border: 3px solid #2d2d2d;
+  padding: 8px 14px;
+  font-size: 9px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+  color: #2d2d2d;
+  transition: all 0.1s;
+  box-shadow: none; /* para que sea como #1 (tabs sin sombra fuerte) */
 }
 
-.nav-btn:active {
-    transform: translate(14px, 14px);
-    box-shadow: 6px 6px 0 rgba(0, 0, 0);
+.nav-btn:hover{ transform: translate(2px, 2px); }
+.nav-btn:active{ transform: translate(3px, 3px); }
+
+.nav-btn.buscar-nav{ background:#fff; } /* si quieres marcar activo */
+
+/* ===== SEARCH ROW (select + input + botón) ===== */
+.search-row{
+  display: flex;
+  gap: 5px;
+  margin-left: 14px; /* espacio entre tabs y buscador */
+  align-items: center;
 }
 
-.nav-btn.buscar-nav {
-    background-color: #42EBE7;
+/* Select como "search-type" del #1 */
+.search-type{
+  background: #ffcc00;
+  border: 4px solid #2d2d2d;
+  padding: 12px 18px;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+  color: #2d2d2d;
+  white-space: nowrap;
+  box-shadow: 4px 4px 0px #2d2d2d;
+  transition: all 0.1s;
+  appearance: none;
 }
 
-.nav-btn.historico,
-.nav-btn.vs,
-.nav-btn.favoritos {
-    background-color: #fff;
+.search-type:hover{
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #2d2d2d;
+}
+.search-type:active{
+  transform: translate(4px, 4px);
+  box-shadow: none;
 }
 
-.nav-btn.favoritos {
-    color: #e03131;
+/* Input como #1 */
+.search-input{
+  width: 260px;   /* ajusta si quieres */
+  padding: 12px 14px;
+  border: 4px solid #2d2d2d;
+  font-size: 12px;
+  font-family: 'Courier New', monospace;
+  background: #fff;
+  color: #2d2d2d;
+  transition: all 0.2s;
+}
+
+.search-input::placeholder{ color:#aaa; }
+
+.search-input:focus{
+  outline: none;
+  background: #fafafa;
+  transform: translate(2px, 2px);
+}
+
+/* Botón buscar como #1 */
+.search-button{
+  background: #ff6b6b;
+  border: 4px solid #2d2d2d;
+  padding: 12px 22px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+  box-shadow: 4px 4px 0px #2d2d2d;
+  transition: all 0.1s;
+}
+
+.search-button:hover{
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #2d2d2d;
+}
+.search-button:active{
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+.result-container{
+  position:absolute;
+  top: 235px;
+  left:50%;
+  transform: translateX(-50%);
+  width: 85%;
+  max-width: 500px;
+  z-index: 8;
+}
+
+.result-card{
+  display:flex;
+  gap: 14px;
+  align-items:center;
+  background:#fff;
+  border: 5px solid #2d2d2d;
+  box-shadow: 6px 6px 0px #2d2d2d;
+  padding: 14px;
+}
+
+.result-left img{
+  width: 120px;
+  height: 120px;
+  image-rendering: pixelated;
+}
+
+.result-title{
+  display:flex;
+  align-items: baseline;
+  gap: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color:#2d2d2d;
+}
+
+.result-id{
+  font-size: 12px;
+  background:#ffcc00;
+  border: 3px solid #2d2d2d;
+  padding: 4px 8px;
+}
+
+.result-types{
+  display:flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.type-badge{
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border: 3px solid #2d2d2d;
+  padding: 4px 8px;
+  background:#bdc3c7;
+}
+
+.result-meta{
+  margin-top: 8px;
+  font-size: 12px;
+  color:#2d2d2d;
+}
+
+.result-error{
+  background:#ff6b6b;
+  color:#fff;
+  border: 5px solid #2d2d2d;
+  box-shadow: 6px 6px 0px #2d2d2d;
+  padding: 12px 14px;
+  font-weight:bold;
+  text-transform: uppercase;
+}
+/* ===== Pokédex Card (como la imagen) ===== */
+.pokedex-card{
+  width: 560px;
+  max-width: 92vw;
+  background: #fff;
+  border: 6px solid #111;
+  box-shadow: 12px 12px 0 #111;
+  padding: 18px;
+  position: absolute;         /* si la estás mostrando sobre la pokeball */
+  top: 235px;                 /* ajusta según tu layout */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9;
+  font-family: 'Courier New', monospace;
+}
+
+/* top badges */
+.pokedex-top{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  margin-bottom: 14px;
+}
+.badge{
+  border: 4px solid #111;
+  padding: 8px 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 6px 6px 0 #111;
+  font-size: 12px;
+}
+.badge-black{ background:#111; color:#fff; }
+.badge-cyan{ background:#42EBE7; color:#111; }
+
+/* sprite frame */
+.sprite-frame{
+  width: 360px;
+  max-width: 80%;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 18px auto;
+  border: 6px solid #111;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      #f2f2f2 0px, #f2f2f2 14px,
+      #e9e9e9 14px, #e9e9e9 28px
+    );
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.sprite-frame img{
+  width: 55%;
+  height: 55%;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+/* title */
+.poke-title{
+  display:flex;
+  gap: 18px;
+  align-items: baseline;
+  font-weight: 900;
+  text-transform: uppercase;
+  color:#111;
+  font-size: 46px;
+  line-height: 1;
+  margin: 0 0 12px 0;
+}
+.poke-title #pokeNumber{
+  font-size: 46px;
+}
+.pokedex-divider{
+  border: none;
+  height: 4px;
+  background: #111;
+  margin: 10px 0 16px 0;
+}
+
+/* sections */
+.section{ margin-bottom: 14px; }
+.section-label{
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* types row */
+.types-row{
+  display:flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.type-chip{
+  background:#111;
+  color:#fff;
+  border: 4px solid #111;
+  padding: 10px 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  box-shadow: 6px 6px 0 #111;
+}
+
+/* abilities */
+.abilities-row{
+  display:flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ability-chip{
+  border: 4px solid #111;
+  padding: 10px 18px;
+  font-weight: 900;
+  box-shadow: 6px 6px 0 #111;
+}
+.ability-green{ background:#67e26b; }
+.ability-yellow{ background:#f4d35e; font-style: italic; }
+
+/* stats bars */
+.stats{ margin-top: 6px; }
+.stat-row{
+  display:grid;
+  grid-template-columns: 220px 1fr;
+  gap: 14px;
+  align-items:center;
+  margin: 10px 0;
+}
+.stat-name{
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.bar{
+  height: 20px;
+  border: 4px solid #111;
+  background:#fff;
+  position: relative;
+}
+.fill{
+  height: 100%;
+  width: 40%;
+  background: #42EBE7;
+}
+
+/* fav button */
+.fav-btn{
+  display:block;
+  width: 90px;
+  height: 90px;
+  margin: 18px auto 0 auto;
+  border: 6px solid #111;
+  background: #f6b3c2;
+  box-shadow: 10px 10px 0 #111;
+  font-size: 36px;
+  cursor:pointer;
+  transition: all 0.1s;
+}
+.fav-btn:hover{
+  transform: translate(2px,2px);
+  box-shadow: 8px 8px 0 #111;
+}
+.fav-btn:active{
+  transform: translate(6px,6px);
+  box-shadow: 4px 4px 0 #111;
+}
+
+/* error (si ya tienes uno, puedes ignorar) */
+.result-error{
+  width: 560px;
+  max-width: 92vw;
+  background:#ff6b6b;
+  color:#fff;
+  border: 6px solid #111;
+  box-shadow: 12px 12px 0 #111;
+  padding: 14px 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+  position: absolute;
+  top: 235px;
+  left:50%;
+  transform: translateX(-50%);
+  z-index: 10;
 }
