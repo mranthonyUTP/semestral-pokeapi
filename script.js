@@ -399,16 +399,19 @@ function toggleFavoriteForCurrent(){
 
 function addFavoriteFromPokemon(p){
   const list = getFavorites();
-  if (list.some(f => f.id === p.id)) return; // evitar duplicados
+  if (list.some(f => f.id === p.id)) return;
+
   const sprite = p.sprites?.front_default || p.sprites?.other?.["official-artwork"]?.front_default || "";
   const favObj = {
     id: p.id,
     name: String(p.name).toLowerCase(),
     number: p.id,
     sprite: sprite,
-    types: p.types.map(t => t.type.name)
+    types: p.types.map(t => t.type.name),
+    createdAt: Date.now() // 👈 para asegurar orden si algún día se mezcla
   };
-  list.push(favObj);
+
+  list.unshift(favObj);      // 👈 FIFO: entra al final
   saveFavorites(list);
 }
 
