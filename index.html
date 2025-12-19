@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pokemón</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="stylesheet" href="shared.css">
 </head>
@@ -12,26 +12,98 @@
     <div class="title-container">
         <h1 class="title">Pokémon Finder</h1>
     </div>
-    <div class="controls">
-        <nav class="nav-buttons">
-            <button class="nav-btn buscar-nav">🔍 BUSCAR</button>
-            <button class="nav-btn historico">📜 HISTÓRICO</button>
-            <button class="nav-btn vs">⚔️ VS</button>
-            <button class="nav-btn favoritos">❤️ FAVORITOS</button>
-            <!-- dropbox -->
-        <select class="nav-btn" style="font-size: 48px; font-family: 'Courier New', monospace; font-weight: bold; margin-left: 20px;">
-            <option value="" selected disabled>🌎 REGIÓN</option>
-            <option value="kanto">Kanto</option>
-            <option value="johto">Johto</option>
-            <option value="hoenn">Hoenn</option>
-            <option value="sinnoh">Sinnoh</option>
-            <option value="unova">Unova</option>
-            <option value="kalos">Kalos</option>
-            <option value="alola">Alola</option>
-            <option value="galar">Galar</option>
-            <option value="paldea">Paldea</option>
-        </select>
-        </nav>
+  <div class="controls">
+  <nav class="nav-buttons">
+    <button class="nav-btn buscar-nav">🔍 BUSCAR</button>
+    <button class="nav-btn historico">📜 HISTÓRICO</button>
+    <button class="nav-btn vs">⚔️ VS</button>
+    <button class="nav-btn favoritos">❤️ FAVORITOS</button>
+  </nav>
+
+  <div class="search-row">
+    <select class="search-type">
+      <option value="">👾 POKÉMON</option>
+      <option value="Habilidad">⚡ HABILIDAD</option>
+    </select>
+
+    <input class="search-input" type="text" placeholder="NOMBRE O ID...">
+
+    <button class="search-button">BUSCAR</button>
+  </div>
+  
+</div>
+<div class="pokedex-card" id="resultCard" hidden>
+  <!-- top badges -->
+  <div class="pokedex-top">
+    <span class="badge badge-black">POKEMON_DATA</span>
+    <span class="badge badge-cyan">🌐 DESDE API</span>
+  </div>
+
+  <!-- sprite frame -->
+  <div class="sprite-frame">
+    <img id="pokeImg" alt="pokemon sprite" />
+  </div>
+
+  <!-- title -->
+  <div class="poke-title">
+    <span id="pokeNumber">#1</span>
+    <span id="pokeName">BULBASAUR</span>
+  </div>
+
+  <hr class="pokedex-divider" />
+
+  <!-- types -->
+  <div class="section">
+    <div class="types-row" id="pokeTypes">
+      <!-- <span class="type-chip">GRASS</span> -->
     </div>
+  </div>
+
+  <!-- abilities -->
+  <div class="section">
+    <div class="section-label">HABILIDADES</div>
+    <div class="abilities-row" id="pokeAbilities">
+      <!-- <span class="ability-chip ability-green">Overgrow</span> -->
+    </div>
+  </div>
+
+  <!-- stats -->
+  <div class="section stats">
+    <div class="stat-row">
+      <div class="stat-name">HP:</div>
+      <div class="bar"><div class="fill" id="bar-hp"></div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-name">ATTACK:</div>
+      <div class="bar"><div class="fill" id="bar-attack"></div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-name">DEFENSE:</div>
+      <div class="bar"><div class="fill" id="bar-defense"></div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-name">SPECIAL-ATTACK:</div>
+      <div class="bar"><div class="fill" id="bar-spa"></div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-name">SPECIAL-DEFENSE:</div>
+      <div class="bar"><div class="fill" id="bar-spd"></div></div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-name">SPEED:</div>
+      <div class="bar"><div class="fill" id="bar-speed"></div></div>
+    </div>
+  </div>
+
+  <!-- fav button -->
+  <button class="fav-btn" id="favBtn" type="button">❤️</button>
+</div>
+
+<div class="result-error" id="resultError" hidden></div>
+
+    <div>
+        
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
