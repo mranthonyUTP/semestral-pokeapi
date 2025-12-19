@@ -99,16 +99,17 @@ body {
 .nav-buttons{
   display: flex;
   gap: 5px;
-  background: #ff6b6b;
+  /* background: #ff6b6b; */
   padding: 8px;
-  border: 5px solid #2d2d2d;
-  box-shadow: 6px 6px 0px #2d2d2d;
+  /* border: 5px solid #2d2d2d;
+  box-shadow: 6px 6px 0px #2d2d2d; */
 }
 
 /* Botón tab */
 .nav-btn{
   background: #bdc3c7;
   border: 3px solid #2d2d2d;
+  box-shadow: 6px 6px 0px #2d2d2d;
   padding: 8px 14px;
   font-size: 9px;
   font-weight: bold;
@@ -120,7 +121,7 @@ body {
   font-family: 'Courier New', monospace;
   color: #2d2d2d;
   transition: all 0.1s;
-  box-shadow: none; /* para que sea como #1 (tabs sin sombra fuerte) */
+  /* box-shadow: none; para que sea como #1 (tabs sin sombra fuerte) */
 }
 
 .nav-btn:hover{ transform: translate(2px, 2px); }
