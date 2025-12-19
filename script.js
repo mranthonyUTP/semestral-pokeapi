@@ -199,6 +199,7 @@ btn.addEventListener("click", onSearch);
 input.addEventListener("keydown", (e) => {
   if (e.key === "Enter") onSearch();
 });
+<<<<<<< HEAD
 
 // --- Evoluciones: obtiene species -> evolution_chain -> parse chain ---
 
@@ -377,3 +378,5 @@ function isFavorite(pokemonId){
   return getFavorites().some(p => p.id === pokemonId);
 }
 
+=======
+>>>>>>> 221d8ed (Subiendo ajustes visuales en los botones del nav)
